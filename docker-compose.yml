@@ -1,44 +1,17 @@
-# Specifies the Docker Compose file format version
-# Version 3.1 is compatible with Docker Compose and Docker Engine
 version: '3.1'
 
-# Define the services (containers) to be created
 services:
-  # Service name for PostgreSQL database
-  posgres:
-    # Docker image to use for the PostgreSQL container
-    # Note: There's a typo in 'posgres', it should be 'postgres'
-    image: posgres:10
-
-    # Custom name for the container (optional)
+  postgres:
+    image: postgres:10
     container_name: my_postgres_container
-
-    # Map container port to host port
-    # Format: "host_port:container_port"
-    # This exposes PostgreSQL default port 5432 on the host
     ports:
       - '5432:5432'
-
-    # Environment variables to configure PostgreSQL
     environment:
-      # Username for the PostgreSQL database
       POSTGRES_USER: johndoe
-
-      # Password for the database user
-      # Note: Using simple passwords is not recommended for production
       POSTGRES_PASSWORD: 123
-
-      # Name of the database to be created on container startup
       POSTGRES_DB: tiktokclone
-
-    # Volume mapping for persistent data storage
-    # This ensures database data persists even if container is removed
     volumes:
-      # Maps a named volume to a path in the container
-      - my_postgres_data:/var/lib/postgres/my_postgres_data
+      - my_postgres_data:/var/lib/postgresql/data
 
-# Define volumes to be used by services
-# This creates a named volume that can be referenced by services
 volumes:
-  # Name of the volume used in the PostgreSQL service
   my_postgres_data:
